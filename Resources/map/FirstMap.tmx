@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="15" height="13" tilewidth="40" tileheight="40" nextobjectid="1">
+ <tileset firstgid="1" name="map" tilewidth="40" tileheight="40" tilecount="195" columns="15">
+  <image source="map.jpg" width="600" height="520"/>
+ </tileset>
+ <layer name="块层 1" width="15" height="13">
+  <data encoding="base64" compression="zlib">
+   eJxdz+dTDwAcBvBf8UKpyErDCsmmzGxCk+xNXUbdKSPrzk5RSpREwwjZ2XuE/GN93P1e9eLz4vnePXfPNyQQCITSh76EEU5/+vXKEUQSxQAGEs0gBjOEoQwjhuHEEkc8CYxgJKMYzRgSGcs4xpPEBJKZyCQmM4WpTGM6M5hJCqnMYjZzmMs85pPGAhayiMUsYSnLWM4K0lnJKlaTQSZZZJNDLmtYSx7rWM8GNrKJzWxhK9vYzg52sovd7CGfgmC3kL3sYz8HKKKYUzRwkBJKOcRhjnCUMo5xnBOcDPb+/3uB05zhLOc4H7xfpJxLVFDJZa5QRTVXqaGWa9RxnRvUB7fdpJFbNHGbOzTTQitt3OUe93lAOw95xGM6eMJTnvGcF7zkFZ285g1vecd7PvCRT3zmC1/5xnd+8JNfdPGbP/ylm3/0ALZcSqM=
+  </data>
+ </layer>
+</map>
