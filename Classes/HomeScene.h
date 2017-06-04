@@ -11,6 +11,12 @@ public:
     void menuSetCallback(cocos2d::Ref*pSender);              //设置按钮，调用函数声明
     void menuHelpCallback(cocos2d::Ref*pSender);             //帮助按钮，调用函数声明
 
+    //virtual void onEnter();
+    //virtual void onEnterTransitionDidFinish();
+    //virtual void onExit();
+    //virtual void onExitTransitionDidStart();
+    //virtual void cleanup();
+
     CREATE_FUNC(Home);
 };
 #endif // !_HOMESCENE_H_

@@ -3,6 +3,7 @@
 #include"SimpleAudioEngine.h"
 
 USING_NS_CC;
+using namespace CocosDenshion;
 
 Scene* Help::createScene()
 {
@@ -41,4 +42,5 @@ bool Help::init()
 void Help::menuGobackCallback(Ref*pSender)
 {
     Director::getInstance()->popScene();                 //点击返回按钮后回到home界面
+    SimpleAudioEngine::getInstance()->playEffect("sound/click.wav");  //播放点击音效
 }

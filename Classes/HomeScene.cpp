@@ -5,6 +5,7 @@
 #include"SimpleAudioEngine.h"
 
 USING_NS_CC;
+using namespace CocosDenshion;
 Scene*Home::createScene()
 {
     auto scene = Scene::create();
@@ -58,6 +59,8 @@ void Home::menuStartCallback(Ref*pSender)
 {
     auto sc = GameScene::createScene();
     Director::getInstance()->pushScene(sc);             //进入游戏界面
+    SimpleAudioEngine::getInstance()->playEffect("sound/click.wav");   //播放点击音效
+    //SimpleAudioEngine::getInstance()->stopBackgroundMusic("sound/home_bgm.mp3");   //停止播放主页音乐
 }
 
 //点击设置按钮调用的函数
@@ -65,6 +68,7 @@ void Home::menuSetCallback(Ref*pSender)
 {
     auto sc = Setting::createScene();
     Director::getInstance()->pushScene(sc);               //进入设置界面
+    SimpleAudioEngine::getInstance()->playEffect("sound/click.wav");    //播放点击音效
 }
 
 //点击帮助按钮调用的函数
@@ -73,4 +77,32 @@ void Home::menuHelpCallback(Ref*pSender)
     
     auto sc = Help::createScene();
     Director::getInstance()->pushScene(sc);               //进入帮助界面
+    SimpleAudioEngine::getInstance()->playEffect("sound/click.wav");
 }
+
+/*void Home::onEnter()
+{
+    Layer::onEnter();
+    log("Home onEnter");
+}
+void Home::onEnterTransitionDidFinish()
+{
+    Layer::onEnterTransitionDidFinish();
+    log("Home onEnterTransitionDidFinish");
+    SimpleAudioEngine::getInstance()->playBackgroundMusic("sound/home_bgm.mp3", true);
+}
+void Home::onExit()
+{
+    Layer::onExit();
+    log("Home onExit");
+}
+void Home::onExitTransitionDidStart()
+{
+    Layer::onExitTransitionDidStart();
+    log("Home onExitTransitionDidStart");
+}
+void Home::cleanup()
+{
+    Layer::cleanup();
+    log("Home cleanup");
+}*/

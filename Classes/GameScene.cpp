@@ -2,8 +2,14 @@
 #include"HomeScene.h"
 #include"MapLayer.h"
 #include"SimpleAudioEngine.h"
+#include"Hero.h"
+#include"cocos2d.h" 
+#include"cocos-ext.h"
 
 USING_NS_CC;
+USING_NS_CC_EXT;
+using namespace cocos2d;
+
 Scene*GameScene::createScene()
 {
     auto scene = Scene::create();
@@ -35,7 +41,17 @@ bool GameScene::init()
     menu->setPosition(Vec2::ZERO);
     menu->setAnchorPoint(Vec2::ZERO);
     addChild(menu, 1);                                   //将退出按钮加入到菜单项中
-     
+    
+	player1 = new Hero();                               //创建人物
+	player1 -> addPlayerAnimation();
+	player1 -> addPlayer();
+	this->addChild(player1, 1);
+
+	auto listener = EventListenerKeyboard::create();
+	listener->onKeyPressed = CC_CALLBACK_2(GameScene::onKeyPressed, this);
+	listener->onKeyReleased = CC_CALLBACK_2(GameScene::onKeyPressed, this);
+	_eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
+	
     this->initMapLayer();
     return true;
 }
@@ -43,7 +59,6 @@ bool GameScene::init()
 //点击退出按钮之后的回调函数
 void GameScene::menuExitcallback(Ref*pSender)
 {
-    
     Director::getInstance()->popScene();         //点击退出按钮后返回到home界面
 }                                     
 
@@ -53,3 +68,11 @@ void GameScene::initMapLayer()
     MapLayer*map = MapLayer::create();            //创建地图
     this->addChild(map);                          //将地图层加入到该场景中
 }
+
+void GameScene::onKeyPressed(EventKeyboard::KeyCode keyCode, Event*event)
+{
+	player1->Moveto(player1->getDirection(keyCode));
+	player1->stopAllActions();
+}
+
+

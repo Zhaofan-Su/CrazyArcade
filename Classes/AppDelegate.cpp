@@ -1,6 +1,6 @@
 #include "AppDelegate.h"
 #include"HelloWorldScene.h"
-#include"SimpleAudioEngine.h"
+
 
 USING_NS_CC;
 
@@ -80,22 +80,32 @@ bool AppDelegate::applicationDidFinishLaunching() {
     // run
     director->runWithScene(scene);
 
-    
+    //初始化背景音乐
+    SimpleAudioEngine::getInstance()->preloadBackgroundMusic("sound/home_bgm.mp3");
+    SimpleAudioEngine::getInstance()->preloadBackgroundMusic("sound/game_bgm.mp3");
+
+    //初始化背景音乐
+    SimpleAudioEngine::getInstance()->preloadEffect("sound/win.mp3");
+    SimpleAudioEngine::getInstance()->preloadEffect("sound/click.wav");
+
+
     return true;
 }
 
 // This function will be called when the app is inactive. Note, when receiving a phone call it is invoked.
+//在这个函数中需要停止动画和暂停背景音乐和音效文件
 void AppDelegate::applicationDidEnterBackground() {
     Director::getInstance()->stopAnimation();
 
     // if you use SimpleAudioEngine, it must be paused
-    // SimpleAudioEngine::getInstance()->pauseBackgroundMusic();
+    SimpleAudioEngine::getInstance()->pauseBackgroundMusic();
 }
 
 // this function will be called when the app is active again
+//游戏从后台回到前台时调用，在这个函数中需要继续动画和背景音乐播放
 void AppDelegate::applicationWillEnterForeground() {
     Director::getInstance()->startAnimation();
 
     // if you use SimpleAudioEngine, it must resume here
-    // SimpleAudioEngine::getInstance()->resumeBackgroundMusic();
+    SimpleAudioEngine::getInstance()->resumeBackgroundMusic();
 }

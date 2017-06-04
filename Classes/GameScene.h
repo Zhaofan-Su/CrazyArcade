@@ -2,6 +2,8 @@
 #define _GAME_H_
 
 #include"cocos2d.h"
+#include"cocos-ext.h"
+#include"Hero.h"
 
 //游戏场景
 class GameScene :public cocos2d::Layer
@@ -15,6 +17,9 @@ public:
 
     void initMapLayer();                           //初始化游戏层的函数
 
+	void onKeyPressed(EventKeyboard::KeyCode keyCode, Event * event);
+
+	Hero* player1;
 
     CREATE_FUNC(GameScene);
 };

@@ -4,6 +4,7 @@
 
 
 USING_NS_CC;
+using namespace CocosDenshion;
 
 Scene* HelloWorld::createScene()
 {
@@ -56,6 +57,7 @@ bool HelloWorld::init()
     menu->setPosition(Vec2::ZERO);                             //并将关闭按钮、go按钮加入到该菜单项中
     this->addChild(menu, 1);                                   //添加该菜单项到场景中
 
+    SimpleAudioEngine::getInstance()->playBackgroundMusic("sound/home_bgm.mp3", true);
     return true;
 }
 
@@ -71,4 +73,19 @@ void HelloWorld::menuNextCallback(Ref*pSender)
 {
     auto sc = Home::createScene();                            
     Director::getInstance()->replaceScene(sc);                //进入到home界面中
+    SimpleAudioEngine::getInstance()->playEffect("sound/click.wav"); //播放点击音效
 }
+
+/*void HelloWorld::onEnterTransitionDidFinish()
+{
+    Layer::onEnterTransitionDidFinish();
+    log("HellowWorld onEnterTransitionDidFinish");
+    SimpleAudioEngine::getInstance()->playBackgroundMusic("sound/home_bgm.mp3", true);    //播放该界面背景音乐
+}
+
+void HelloWorld::onExitTransitionDidStart()
+{
+    Layer::onExitTransitionDidStart();
+    log("HelloWorld onExitTransitionDidStart");
+    SimpleAudioEngine::getInstance()->stopBackgroundMusic("sound/home_bgm.mp3");
+}*/

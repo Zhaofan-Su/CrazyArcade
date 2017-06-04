@@ -13,6 +13,9 @@ public:
      //a selector callback
     void menuCloseCallback(cocos2d::Ref* pSender);     //关闭按钮的函数声明
     void menuNextCallback(cocos2d::Ref*pSender);       //go按钮的函数声明
+
+    //virtual void onEnterTransitionDidFinish();
+    //virtual void onExitTransitionDidStart();
     // implement the "static create()" method manually
     CREATE_FUNC(HelloWorld);
 };
