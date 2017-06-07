@@ -1,6 +1,7 @@
 //hero.cpp
 
 #include "Hero.h" 
+#include "MapLayer.h"
 
 USING_NS_CC;
 USING_NS_CC_EXT;
@@ -9,7 +10,7 @@ void Hero::addPlayerAnimation()
 {
 	//创建player1的帧缓存，并加载player1的动画图片到缓存
 	auto *player1_spriteFrameCache = SpriteFrameCache::getInstance();
-	player1_spriteFrameCache->addSpriteFramesWithFile("player1_anim.plist", "player1_anim.png");
+	player1_spriteFrameCache->addSpriteFramesWithFile("hero/player1_anim.plist", "hero/player1_anim.png");
 
 	//创建player1的上下左右四个方向的Vector 
 	Vector<SpriteFrame*> player1_anim_left_vector;
@@ -61,7 +62,7 @@ void Hero::addPlayerAnimation()
 
 void Hero::addPlayer()
 {
-	player = Sprite::create("player1.png");
+	player = Sprite::create("hero/player1.png");
 	player ->setPosition(Vec2(20, 200));
 	player ->setAnchorPoint(Vec2::ZERO);
 	addChild(player);
@@ -96,37 +97,62 @@ int Hero::getDirection(EventKeyboard::KeyCode keyCode)
 void Hero::Moveto(int direction)
 {
 	Vec2 playerPos = player->getPosition();
-	player->stopAllActions();
+    player->stopAllActions();
+	
 	if (direction == UP)
 	{
 		addPlayerAnimation();
-		CCMoveBy * move = CCMoveBy::create(0.8, ccp(0, 40));
-		Action *GOUP = runAction(player1_animate_up);
-		CCSpawn * spawn = CCSpawn::create(move, GOUP, NULL);
-		player->runAction(spawn);
+        if (playerPos.y + 40 <= 560)
+        {
+            CCMoveBy * move = CCMoveBy::create(mInfo.fSpeed, ccp(0, 40));
+            Action *GOUP = runAction(player1_animate_up);
+            CCSpawn * spawn = CCSpawn::create(move, GOUP, NULL);
+            player->setAnchorPoint(Vec2::ZERO);
+            player->runAction(spawn);
+        }
 	}
 	else if (direction == DOWN)
 	{
 		addPlayerAnimation();
-		CCMoveBy * move = CCMoveBy::create(0.8, ccp(0, -40));
-		Action *GODOWN = runAction(player1_animate_down);
-		CCSpawn * spawn = CCSpawn::create(move, GODOWN, NULL);
-		player->runAction(spawn);
+        if (playerPos.y - 40 >= 40)
+        {
+            CCMoveBy * move = CCMoveBy::create(mInfo.fSpeed, ccp(0, -40));
+            Action *GODOWN = runAction(player1_animate_down);
+            CCSpawn * spawn = CCSpawn::create(move, GODOWN, NULL);
+            player->setAnchorPoint(Vec2::ZERO);
+            player->runAction(spawn);
+        }
 	}
 	else if (direction == LEFT)
 	{
 		addPlayerAnimation();
-		CCMoveBy * move = CCMoveBy::create(0.8, ccp(-40, 0));;
-		Action *GOLEFT = runAction(player1_animate_left);
-		CCSpawn * spawn = CCSpawn::create(move, GOLEFT, NULL);
-		player->runAction(spawn);
+        if (playerPos.x - 40 >= 20)
+        {
+            CCMoveBy * move = CCMoveBy::create(mInfo.fSpeed, ccp(-40, 0));;
+            Action *GOLEFT = runAction(player1_animate_left);
+            CCSpawn * spawn = CCSpawn::create(move, GOLEFT, NULL);
+            player->setAnchorPoint(Vec2::ZERO);
+            player->runAction(spawn);
+        }
 	}
 	else if (direction == RIGHT)
 	{
 		addPlayerAnimation();
-		CCMoveBy * move = CCMoveBy::create(0.8, ccp(40, 0));;
-		Action *GORIGHT = runAction(player1_animate_right);
-		CCSpawn * spawn = CCSpawn::create(move, GORIGHT, NULL);
-		player->runAction(spawn);
+        if (playerPos.x + 40 <= 620)
+        {
+            CCMoveBy * move = CCMoveBy::create(mInfo.fSpeed, ccp(40, 0));;
+            Action *GORIGHT = runAction(player1_animate_right);
+            CCSpawn * spawn = CCSpawn::create(move, GORIGHT, NULL);
+            player->setAnchorPoint(Vec2::ZERO);
+            player->runAction(spawn);
+        }
 	}
+}
+
+void Hero::addSpeed(float fSpeed)
+{
+	if (fSpeed <= 0.f)
+		return;
+
+	fSpeed += fSpeed;
 }

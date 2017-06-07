@@ -1,9 +1,12 @@
 #ifndef __HERO_H__ 
 #define __HERO_H__ 
+
 #include "cocos2d.h" 
 #include "cocos-ext.h" 
+
 using namespace cocos2d; 
 USING_NS_CC_EXT;  
+
 enum hero_direction
 {
 	UP = 1,
@@ -11,6 +14,17 @@ enum hero_direction
 	LEFT = 3,
 	RIGHT = 4
 };
+
+// 角色属性
+struct HeroInfo {
+	HeroInfo()
+	: fSpeed(1.f)
+	{
+	}
+
+	float		fSpeed;		// 角色速度
+};
+
 class Hero:
 	public cocos2d::CCNode 
 { 
@@ -32,6 +46,25 @@ public:
 
 	Sprite* player;
 	CREATE_FUNC(Hero);
+
+public:
+	// 增加速度
+	void addSpeed(float fSpeed);
+
+	// 获取角色属性
+	inline const HeroInfo &getHeroInfo() {
+		return mInfo;
+	}
+
+private:
+	// 构造函数
+	Hero() {
+
+	}
+
+private:
+	// 角色属性
+	HeroInfo		mInfo;
 };
 
 

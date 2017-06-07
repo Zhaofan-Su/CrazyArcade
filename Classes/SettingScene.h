@@ -11,7 +11,11 @@ public:
     virtual bool init();
 
     void menuGoCallback(cocos2d::Ref*pSender);            //点击返回按钮时调用的函数的声明
+    void menuSoundToggleCallback(cocos2d::Ref *pSender);
+    void menuMusicToggleCallback(cocos2d::Ref *pSender);
+    void menuOkCallback(cocos2d::Ref *pSender);
 
+    
     CREATE_FUNC(Setting);
 };
 #endif // ! _SETTING_H_

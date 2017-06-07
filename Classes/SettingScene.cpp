@@ -33,9 +33,46 @@ bool Setting::init()
     GobackItem->setPosition(Vec2::ZERO);            //创建返回按钮
     GobackItem->setAnchorPoint(Vec2::ZERO);
 
-    auto menu = Menu::create(GobackItem, NULL);
+    //音乐
+    auto soundOnMenuItem = MenuItemImage::create(
+        "SettingsScene/sound-on.png",
+        "SettingsScene/sound-on.png");
+    auto soundOffMenuItem = MenuItemImage::create(
+        "SettingsScene/sound-off.png",
+        "SettingsScene/sound-off.png");
+    auto soundToggleMenuItem = MenuItemToggle::createWithCallback(CC_CALLBACK_1(Setting::menuSoundToggleCallback, this),
+        soundOnMenuItem,
+        soundOffMenuItem, NULL);
+    soundToggleMenuItem->setPosition(Director::getInstance()->convertToGL(Vec2(400,500)));
+
+    //the music
+    auto musicOnMenuItem = MenuItemImage::create(
+        "SettingsScene/music-on.png",
+        "SettingsScene/music-on.png");
+    auto musicOffMenuItem = MenuItemImage::create(
+        "SettingsScene/music-off.png",
+        "SettingsScene/music-off.png");
+    auto musicToggleMenuItem = MenuItemToggle::createWithCallback(CC_CALLBACK_1(Setting::menuMusicToggleCallback, this),
+        musicOnMenuItem,
+        musicOffMenuItem,
+        NULL);
+    musicToggleMenuItem->setPosition(Director::getInstance()->convertToGL(Vec2(400,300)));
+
+    auto menu = Menu::create(GobackItem, soundToggleMenuItem,
+        musicToggleMenuItem, NULL);
     menu->setPosition(Vec2::ZERO);
     addChild(menu, 1);
+
+    //设置音效和音乐选中状态
+    UserDefault*defaults = UserDefault::getInstance();
+    if (defaults->getBoolForKey("music_key"))
+    {
+        musicToggleMenuItem->setSelectedIndex(0);
+    }
+    else
+    {
+        musicToggleMenuItem->setSelectedIndex(1);
+    }
 
     return true;
 
@@ -47,3 +84,37 @@ void Setting::menuGoCallback(Ref*pSender)
     Director::getInstance()->popScene();                      //回到home界面
     SimpleAudioEngine::getInstance()->playEffect("sound/click.wav");   //播放点击音效
 } 
+
+
+
+void Setting::menuSoundToggleCallback(cocos2d::Ref * pSender)
+{
+    UserDefault*defaults = UserDefault::getInstance();
+    if (defaults->getBoolForKey("sound_key"))
+    {
+        defaults->setBoolForKey("sound_key", false);
+    }
+    else
+    {
+        defaults->setBoolForKey("sound_key", true);
+        SimpleAudioEngine::getInstance()->playEffect("sound/click.wav", true);
+    }
+}
+void Setting::menuMusicToggleCallback(cocos2d::Ref * pSender)
+{
+    UserDefault*defaults = UserDefault::getInstance();
+    if (defaults->getBoolForKey("music_key"))
+    {
+        defaults->setBoolForKey("music_key", false);
+        SimpleAudioEngine::getInstance()->stopBackgroundMusic();
+    }
+    else
+    {
+        defaults->setBoolForKey("music_key", true);
+        SimpleAudioEngine::getInstance()->playBackgroundMusic("sound/bgm.wav");
+    }
+}
+void Setting::menuOkCallback(cocos2d::Ref * pSender)
+{
+    Director::getInstance()->popScene();
+}
