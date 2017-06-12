@@ -22,8 +22,8 @@ bool Setting::init()
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
     auto background = Sprite::create("bg.png");
-    background->setPosition(Vec2::ZERO);
-    background->setAnchorPoint(Vec2::ZERO);
+    background->setPosition(Vec2(origin.x + visibleSize.width / 2, origin.y + visibleSize.height / 2));
+    //background->setAnchorPoint(Vec2::ZERO);
     this->addChild(background);               //´´½¨±³¾°Í¼Æ¬
 
     auto GobackItem = MenuItemImage::create(
@@ -33,7 +33,7 @@ bool Setting::init()
     GobackItem->setPosition(Vec2::ZERO);            //´´½¨·µ»Ø°´Å¥
     GobackItem->setAnchorPoint(Vec2::ZERO);
 
-    //ÒôÀÖ
+    //the sound //±³¾°ÒôÀÖ
     auto soundOnMenuItem = MenuItemImage::create(
         "SettingsScene/sound-on.png",
         "SettingsScene/sound-on.png");
@@ -43,9 +43,9 @@ bool Setting::init()
     auto soundToggleMenuItem = MenuItemToggle::createWithCallback(CC_CALLBACK_1(Setting::menuSoundToggleCallback, this),
         soundOnMenuItem,
         soundOffMenuItem, NULL);
-    soundToggleMenuItem->setPosition(Director::getInstance()->convertToGL(Vec2(400,500)));
+    soundToggleMenuItem->setPosition(Director::getInstance()->convertToGL(Vec2(400,400)));
 
-    //the music
+    //the music //±³¾°ÒôÀÖµÄÒôÁ¿
     auto musicOnMenuItem = MenuItemImage::create(
         "SettingsScene/music-on.png",
         "SettingsScene/music-on.png");
@@ -56,13 +56,14 @@ bool Setting::init()
         musicOnMenuItem,
         musicOffMenuItem,
         NULL);
-    musicToggleMenuItem->setPosition(Director::getInstance()->convertToGL(Vec2(400,300)));
+    musicToggleMenuItem->setPosition(Director::getInstance()->convertToGL(Vec2(400,200)));
 
     auto menu = Menu::create(GobackItem, soundToggleMenuItem,
         musicToggleMenuItem, NULL);
     menu->setPosition(Vec2::ZERO);
     addChild(menu, 1);
 
+    
     //ÉèÖÃÒôÐ§ºÍÒôÀÖÑ¡ÖÐ×´Ì¬
     UserDefault*defaults = UserDefault::getInstance();
     if (defaults->getBoolForKey("music_key"))
@@ -90,14 +91,15 @@ void Setting::menuGoCallback(Ref*pSender)
 void Setting::menuSoundToggleCallback(cocos2d::Ref * pSender)
 {
     UserDefault*defaults = UserDefault::getInstance();
-    if (defaults->getBoolForKey("sound_key"))
+    if (defaults->getBoolForKey("music_key"))
     {
-        defaults->setBoolForKey("sound_key", false);
+        defaults->setBoolForKey("music_key", false);
+        SimpleAudioEngine::getInstance()->stopAllEffects();
     }
     else
     {
-        defaults->setBoolForKey("sound_key", true);
-        SimpleAudioEngine::getInstance()->playEffect("sound/click.wav", true);
+        defaults->setBoolForKey("music_key", true);
+        SimpleAudioEngine::getInstance()->playEffect("sound/click.wav");
     }
 }
 void Setting::menuMusicToggleCallback(cocos2d::Ref * pSender)

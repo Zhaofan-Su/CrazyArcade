@@ -1,6 +1,5 @@
 #include"GameScene.h"
 #include"HomeScene.h"
-#include"MapLayer.h"
 #include"SimpleAudioEngine.h"
 #include"cocos2d.h" 
 #include"cocos-ext.h"
@@ -15,7 +14,7 @@ Scene*GameScene::createScene()
     auto layer = GameScene::create();
     scene->addChild(layer);
     return scene;
-}                                       
+}
 bool GameScene::init()
 {
     if (!Layer::init())
@@ -40,34 +39,36 @@ bool GameScene::init()
     menu->setPosition(Vec2::ZERO);
     menu->setAnchorPoint(Vec2::ZERO);
     addChild(menu, 1);                                   //将退出按钮加入到菜单项中
-    
-    map = TMXTiledMap::create("map/FirstMap.tmx");         //将地图引入GameScene中
-    map->setPosition(Vec2(20, 40));                              //设置地图位置
-    map->setAnchorPoint(Vec2::ZERO);                            //将地图锚点设置为左下角原点处
-    
-    TMXObjectGroup*group = map->getObjectGroup("objects");        //通过对象层名获得对象层中对象集合
-    ValueMap spawnPoint = group->getObject("hero");               //通过对象名获得对象信息，返回类型ValueMap
 
-    //float x = spawnPoint["x"].asFloat() + 20;
-    //float y = spawnPoint["y"].asFloat() + 40;
+    this->initMapLayer();
+    this->addPlayer();
+    /*map = TMXTiledMap::create("map/FirstMap.tmx");
+    map->setPosition(Vec2(20, 40));                            //设置地图位置
+    map->setAnchorPoint(Vec2::ZERO);                           //将地图锚点设置为左下角原点处
+    addChild(map);
 
-    collidable = map->getLayer("collidable");                //通过层名字“collidable”创建层
-    collidable->setVisible(false);
-    addChild(map, 1);
-   
-    player1 = Hero::create();                               //创建人物
+    TMXObjectGroup*group = map->getObjectGroup("objects");     //通过对象层名获得对象层中对象集合
+    ValueMap spawnPoint = group->getObject("hero");            //通过对象名获得对象信息，返回类型ValueMap
+
+    float x = spawnPoint["x"].asFloat();
+    float y = spawnPoint["y"].asFloat();
+
+    collidable = map->getLayer("collidable");                  //通过层名字“collidable”创建层
+    collidable->setVisible(false);   */                          //设置碰撞层不可见
+
+    /*player1 = Hero::create();                       //创建人物
     player1->addPlayerAnimation();
     player1->addPlayer();
-    //player1->setAnchorPoint(Vec2(0, 0));
     //player1->setPosition(Vec2(20, 200));
-    this->addChild(player1, 2);
+    //player1->setAnchorPoint(Vec2::ZERO);
+    addChild(player1);*/
 
     //注册键盘监听器
     auto listener = EventListenerKeyboard::create();
     listener->onKeyPressed = CC_CALLBACK_2(GameScene::onKeyPressed, this);
     listener->onKeyReleased = CC_CALLBACK_2(GameScene::onKeyPressed, this);
     _eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
-    
+
     setKeypadEnabled(true);
     return true;
 }
@@ -76,22 +77,30 @@ bool GameScene::init()
 void GameScene::menuExitcallback(Ref*pSender)
 {
     Director::getInstance()->popScene();         //点击退出按钮后返回到home界面
-}                                     
+}
 
 //创建地图层的函数定义
-/*void GameScene::initMapLayer()
+void GameScene::initMapLayer()
 {
-    MapLayer*map = MapLayer::create();            //创建地图
-    this->addChild(map);                          //将地图层加入到该场景中
+    map1 = MapLayer::create();            //创建地图
+    this->addChild(map1);                          //将地图层加入到该场景中
+}
+
+void GameScene::addPlayer()
+{
+    player1 = Hero::create();
+    player1->setPosition(Vec2::ZERO);
+    player1->setAnchorPoint(Vec2::ZERO);
+    //player1->addPlayerAnimation();
+    this->addChild(player1);
+}
+/*void GameScene::onKeyPressed(EventKeyboard::KeyCode keyCode, Event*event)
+{
+    player1->Moveto(player1->getDirection(keyCode));
+    player1->stopAllActions();
 }*/
 
 void GameScene::onKeyPressed(EventKeyboard::KeyCode keyCode, Event*event)
-{
-	player1->Moveto(player1->getDirection(keyCode));
-	player1->stopAllActions();
-}
-
-/*void GameScene::onKeyPressed(EventKeyboard::KeyCode keyCode, Event*event)
 {
     Vec2 player_pos = player1->getPosition();
     Vec2 Pos;
@@ -99,7 +108,7 @@ void GameScene::onKeyPressed(EventKeyboard::KeyCode keyCode, Event*event)
     {
         Pos.x = player_pos.x;
         Pos.y = player_pos.y + 40;
-        if (setPlayerPosition(player_pos) && Pos.y <= 560)
+        if (map1->ifncollidable(player_pos) && Pos.y <= 520)
         {
             player1->Moveto(player1->getDirection(keyCode));
             player1->stopAllActions();
@@ -109,7 +118,7 @@ void GameScene::onKeyPressed(EventKeyboard::KeyCode keyCode, Event*event)
     {
         Pos.x = player_pos.x;
         Pos.y = player_pos.y - 40;
-        if (setPlayerPosition(player_pos) && Pos.y >= 40)
+        if (map1->ifncollidable(player_pos) && Pos.y >= 40)
         {
             player1->Moveto(player1->getDirection(keyCode));
             player1->stopAllActions();
@@ -119,7 +128,7 @@ void GameScene::onKeyPressed(EventKeyboard::KeyCode keyCode, Event*event)
     {
         Pos.x = player_pos.x - 40;
         Pos.y = player_pos.y;
-        if (setPlayerPosition(player_pos) && Pos.x >= 20)
+        if (map1->ifncollidable(player_pos) && Pos.x >= 20)
         {
             player1->Moveto(player1->getDirection(keyCode));
             player1->stopAllActions();
@@ -129,42 +138,35 @@ void GameScene::onKeyPressed(EventKeyboard::KeyCode keyCode, Event*event)
     {
         Pos.x = player_pos.x + 40;
         Pos.y = player_pos.y;
-        if (setPlayerPosition(player_pos) && Pos.x <= 620)
+        if (map1->ifncollidable(player_pos) && Pos.x <= 580)
         {
             player1->Moveto(player1->getDirection(keyCode));
             player1->stopAllActions();
         }
     }
 }
-
-bool GameScene::setPlayerPosition(Vec2 position)          //若欲移动处为障碍物，则返回false
+/*bool GameScene::setPlayerPosition(Vec2 position)          //若欲移动处为障碍物，则返回false
 {
     //从像素坐标点转化为瓦片坐标点
     Vec2 Pos;
     Pos.x = position.x - 20;
     Pos.y = position.y - 40;
+    Pos = map1->map->convertToNodeSpace(Pos);
     Vec2 tileCoord;
     int x = Pos.x / 40;              //获得x轴瓦片坐标数
     int y = 12 - Pos.y / 40;                        //获得y轴瓦片坐标数
     tileCoord.x = x;
     tileCoord.y = y;
-
     //获得瓦片的GID
-    int tileGid = collidable->getTileGIDAt(tileCoord);
-
+    int tileGid = map1->collidable->getTileGIDAt(tileCoord);
     if (tileGid > 0)
     {
-        Value prop = map->getPropertiesForGID(tileGid);
+        Value prop = map1->map->getPropertiesForGID(tileGid);
         ValueMap propValueMap = prop.asValueMap();
-
         std::string collision = propValueMap["Collidable"].asString();
-
         if (collision == "true")
             return false;
     }
-
-    //player1->setPosition(position);
+//player1->setPosition(position);
     return true;
 }*/
-
-

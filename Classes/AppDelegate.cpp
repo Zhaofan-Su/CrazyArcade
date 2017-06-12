@@ -1,6 +1,6 @@
 #include "AppDelegate.h"
-#include"HelloWorldScene.h"
-
+//#include"HelloWorldScene.h"
+#include"LoadingScene.h"
 
 USING_NS_CC;
 
@@ -75,19 +75,10 @@ bool AppDelegate::applicationDidFinishLaunching() {
     register_all_packages();
 
     // create a scene. it's an autorelease object
-    auto scene = HelloWorld::createScene();  
+    auto scene = Loading::createScene();  
 
     // run
     director->runWithScene(scene);
-
-    //³õÊ¼»¯±³¾°ÒôÀÖ
-    SimpleAudioEngine::getInstance()->preloadBackgroundMusic("sound/home_bgm.mp3");
-    SimpleAudioEngine::getInstance()->preloadBackgroundMusic("sound/game_bgm.mp3");
-
-    //³õÊ¼»¯±³¾°ÒôÀÖ
-    SimpleAudioEngine::getInstance()->preloadEffect("sound/win.mp3");
-    SimpleAudioEngine::getInstance()->preloadEffect("sound/click.wav");
-
 
     return true;
 }

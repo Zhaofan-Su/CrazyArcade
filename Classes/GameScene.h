@@ -4,13 +4,15 @@
 #include"cocos2d.h"
 #include"cocos-ext.h"
 #include"Hero.h"
+#include"MapLayer.h"
 
 //游戏场景
 class GameScene :public cocos2d::Layer
 {
 public:
-    cocos2d::TMXLayer*collidable;
-    cocos2d::TMXTiledMap*map;
+    //MapLayer*map;
+    
+    MapLayer*map1;
     Hero*player1;
 
     static cocos2d::Scene*createScene();            //创建场景
@@ -19,7 +21,9 @@ public:
 
     void menuExitcallback(cocos2d::Ref*pSender);   //“退出”按钮函数
 
-    //void initMapLayer();                           //初始化游戏层的函数
+    void initMapLayer();                           //初始化游戏层的函数
+
+    void addPlayer();
 
     void onKeyPressed(EventKeyboard::KeyCode keyCode, Event * event);
 

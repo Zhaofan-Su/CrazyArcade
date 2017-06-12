@@ -30,12 +30,12 @@ class Hero:
 { 
 public: 
 	int direction;
-	cocos2d::Point position;
+	cocos2d::Vec2 position;
 	void addPlayerAnimation();
 	void addPlayer();
 	int getDirection(EventKeyboard::KeyCode keyCode);
 	void Moveto(int direction);
-
+    
 	Animate * player1_animate_left;
 	Animate * player1_animate_right;
 	Animate * player1_animate_down;

@@ -1,0 +1,262 @@
+Simple plain text exporter for demo purposes
+
+See http://www.grantlee.org/apidox/for_themers.html for more information
+
+Texture data:
+    texture.width  = 804
+    texture.height = 1808
+
+    texture.trimmedName = loading_anim
+    texture.fullName = loading_anim.png
+    texture.absoluteFileName = C:/Cocosdm/CrazyArcade/Resources/loading/loading_anim.png
+
+SmartUpdateHash: $TexturePacker:SmartUpdate:92f31c8c2d8d779945f988684e3e31f5$
+
+Settings:
+
+Access to all values in the settings (.tps file):
+
+settings.premultiplyAlpha = false
+settings.dataFormat = plain
+settings.allowRotation = true
+settings.flipPVR = false
+settings.ditherType = 0
+...
+
+Sprite data:
+
+There are 2 variants:
+- sprites - contains the sprites, aliases are available in the
+  aliasList property and are not added top level
+
+- allSprites - list of all sprites
+
+Load javascript filter plugin, must be located in the exporter's folder in a subfolder
+grantlee/0.2/makecssselector.qs
+
+
+// set width & height for calculations using the javascript filter
+
+
+
+
+    =========================================================================
+
+    Use the javascript filter plugin to replace -hover with :hover
+    loading_1.png
+
+    -- name without image type extension
+    sprite.trimmedName      = loading_1
+
+    -- name with image extension
+    sprite.fullName         = loading_1.png
+
+    -- offset of the center of the trimmed sprite from the
+    -- center of the original sprite (used by cocos2d)
+    sprite.absoluteOffset.x = 
+    sprite.absoluteOffset.y = 
+
+    -- list of alias sprites for this one
+    sprite.aliasList = 
+
+    --- frame rectangle with pixel coordinates
+    sprite.frameRect.x = 2
+    sprite.frameRect.y = 2
+    sprite.frameRect.width = 800
+    sprite.frameRect.height = 600
+
+    --- frame rectangle with uv coordinates (0..1)
+    sprite.frameRectRel.x = 0.00248756218905473
+    sprite.frameRectRel.y = 0.00110619469026549
+    sprite.frameRectRel.width = 0.995024875621891
+    sprite.frameRectRel.height = 0.331858407079646
+
+    --- frame rectangle with uv coordinates (0..1) calculated through JS
+    sprite.frameRectRel.x = 0.0024875621890547263
+    sprite.frameRectRel.y = 0.0024875621890547263
+    sprite.frameRectRel.width = 0.9950248756218906
+    sprite.frameRectRel.height = 0.746268656716418
+
+    --- version of the frame rect with "original" width and height
+    sprite.frameRectWithoutRotation.x = 2
+    sprite.frameRectWithoutRotation.y = 2
+    sprite.frameRectWithoutRotation.width = 800
+    sprite.frameRectWithoutRotation.height = 600
+
+    -- true if the sprite was rotated
+    sprite.rotated        = false
+
+    -- true if the sprite was trimmed
+    sprite.trimmed        = false
+
+    sprite.sourceRect.x = 0
+    sprite.sourceRect.y = 0
+    sprite.sourceRect.width = 800
+    sprite.sourceRect.height = 600
+
+    sprite.cornerOffset.x = 0
+    sprite.cornerOffset.y = 0
+
+    sprite.untrimmedSize.width = 800
+    sprite.untrimmedSize.height = 600
+
+    -- the file absolute file name of the sprite
+    sprite.fileData.absoluteFileName = C:/Cocosdm/CrazyArcade/Resources/loading_1.png
+
+    -- the modification date of the sprite
+    sprite.fileData.lastModified = 2017-06-04T04:36:16
+
+    -- the creation date of the sprite
+    sprite.fileData.created = 2017-06-06T21:26:30
+
+    -- the file size of the sprite
+    sprite.fileData.fileSize = 749952
+
+
+    =========================================================================
+
+    Use the javascript filter plugin to replace -hover with :hover
+    loading_2.png
+
+    -- name without image type extension
+    sprite.trimmedName      = loading_2
+
+    -- name with image extension
+    sprite.fullName         = loading_2.png
+
+    -- offset of the center of the trimmed sprite from the
+    -- center of the original sprite (used by cocos2d)
+    sprite.absoluteOffset.x = 
+    sprite.absoluteOffset.y = 
+
+    -- list of alias sprites for this one
+    sprite.aliasList = 
+
+    --- frame rectangle with pixel coordinates
+    sprite.frameRect.x = 2
+    sprite.frameRect.y = 604
+    sprite.frameRect.width = 800
+    sprite.frameRect.height = 600
+
+    --- frame rectangle with uv coordinates (0..1)
+    sprite.frameRectRel.x = 0.00248756218905473
+    sprite.frameRectRel.y = 0.334070796460177
+    sprite.frameRectRel.width = 0.995024875621891
+    sprite.frameRectRel.height = 0.331858407079646
+
+    --- frame rectangle with uv coordinates (0..1) calculated through JS
+    sprite.frameRectRel.x = 0.0024875621890547263
+    sprite.frameRectRel.y = 0.7512437810945274
+    sprite.frameRectRel.width = 0.9950248756218906
+    sprite.frameRectRel.height = 0.746268656716418
+
+    --- version of the frame rect with "original" width and height
+    sprite.frameRectWithoutRotation.x = 2
+    sprite.frameRectWithoutRotation.y = 604
+    sprite.frameRectWithoutRotation.width = 800
+    sprite.frameRectWithoutRotation.height = 600
+
+    -- true if the sprite was rotated
+    sprite.rotated        = false
+
+    -- true if the sprite was trimmed
+    sprite.trimmed        = false
+
+    sprite.sourceRect.x = 0
+    sprite.sourceRect.y = 0
+    sprite.sourceRect.width = 800
+    sprite.sourceRect.height = 600
+
+    sprite.cornerOffset.x = 0
+    sprite.cornerOffset.y = 0
+
+    sprite.untrimmedSize.width = 800
+    sprite.untrimmedSize.height = 600
+
+    -- the file absolute file name of the sprite
+    sprite.fileData.absoluteFileName = C:/Cocosdm/CrazyArcade/Resources/loading_2.png
+
+    -- the modification date of the sprite
+    sprite.fileData.lastModified = 2017-06-04T04:36:16
+
+    -- the creation date of the sprite
+    sprite.fileData.created = 2017-06-06T21:26:30
+
+    -- the file size of the sprite
+    sprite.fileData.fileSize = 749699
+
+
+    =========================================================================
+
+    Use the javascript filter plugin to replace -hover with :hover
+    loading_3.png
+
+    -- name without image type extension
+    sprite.trimmedName      = loading_3
+
+    -- name with image extension
+    sprite.fullName         = loading_3.png
+
+    -- offset of the center of the trimmed sprite from the
+    -- center of the original sprite (used by cocos2d)
+    sprite.absoluteOffset.x = 
+    sprite.absoluteOffset.y = 
+
+    -- list of alias sprites for this one
+    sprite.aliasList = 
+
+    --- frame rectangle with pixel coordinates
+    sprite.frameRect.x = 2
+    sprite.frameRect.y = 1206
+    sprite.frameRect.width = 800
+    sprite.frameRect.height = 600
+
+    --- frame rectangle with uv coordinates (0..1)
+    sprite.frameRectRel.x = 0.00248756218905473
+    sprite.frameRectRel.y = 0.667035398230089
+    sprite.frameRectRel.width = 0.995024875621891
+    sprite.frameRectRel.height = 0.331858407079646
+
+    --- frame rectangle with uv coordinates (0..1) calculated through JS
+    sprite.frameRectRel.x = 0.0024875621890547263
+    sprite.frameRectRel.y = 1.5
+    sprite.frameRectRel.width = 0.9950248756218906
+    sprite.frameRectRel.height = 0.746268656716418
+
+    --- version of the frame rect with "original" width and height
+    sprite.frameRectWithoutRotation.x = 2
+    sprite.frameRectWithoutRotation.y = 1206
+    sprite.frameRectWithoutRotation.width = 800
+    sprite.frameRectWithoutRotation.height = 600
+
+    -- true if the sprite was rotated
+    sprite.rotated        = false
+
+    -- true if the sprite was trimmed
+    sprite.trimmed        = false
+
+    sprite.sourceRect.x = 0
+    sprite.sourceRect.y = 0
+    sprite.sourceRect.width = 800
+    sprite.sourceRect.height = 600
+
+    sprite.cornerOffset.x = 0
+    sprite.cornerOffset.y = 0
+
+    sprite.untrimmedSize.width = 800
+    sprite.untrimmedSize.height = 600
+
+    -- the file absolute file name of the sprite
+    sprite.fileData.absoluteFileName = C:/Cocosdm/CrazyArcade/Resources/loading_3.png
+
+    -- the modification date of the sprite
+    sprite.fileData.lastModified = 2017-06-04T04:36:16
+
+    -- the creation date of the sprite
+    sprite.fileData.created = 2017-06-06T21:26:30
+
+    -- the file size of the sprite
+    sprite.fileData.fileSize = 749707
+
+
+

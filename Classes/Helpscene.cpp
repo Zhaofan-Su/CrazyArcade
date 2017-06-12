@@ -37,6 +37,11 @@ bool Help::init()
     menu->setPosition(Vec2::ZERO);
     addChild(menu, 1);                                 //将返回按钮添加到菜单项中，并加入到该场景中
 
+    auto label = Label::createWithTTF("Nothing to help...", "fonts/Marker Felt.ttf", 36);
+    label->setPosition(Vec2(origin.x + visibleSize.width / 2,
+        origin.y + visibleSize.height / 4));
+    this->addChild(label, 1);
+
     return true;
 }
 void Help::menuGobackCallback(Ref*pSender)

@@ -63,9 +63,9 @@ void Hero::addPlayerAnimation()
 void Hero::addPlayer()
 {
 	player = Sprite::create("hero/player1.png");
-	player ->setPosition(Vec2(20, 200));
+	player ->setPosition(Vec2(20, 40));
 	player ->setAnchorPoint(Vec2::ZERO);
-	addChild(player);
+	this->addChild(player);
 	player->runAction(player1_animate_down);
 }
 
@@ -102,7 +102,8 @@ void Hero::Moveto(int direction)
 	if (direction == UP)
 	{
 		addPlayerAnimation();
-        if (playerPos.y + 40 <= 560)
+        playerPos.y += 40;
+        if (playerPos.y <= 560 /*&& ifncollidable(playerPos)*/)
         {
             CCMoveBy * move = CCMoveBy::create(mInfo.fSpeed, ccp(0, 40));
             Action *GOUP = runAction(player1_animate_up);
@@ -114,7 +115,8 @@ void Hero::Moveto(int direction)
 	else if (direction == DOWN)
 	{
 		addPlayerAnimation();
-        if (playerPos.y - 40 >= 40)
+        playerPos.y -= 40;
+        if (playerPos.y >= 0 /*&& ifncollidable(playerPos)*/)
         {
             CCMoveBy * move = CCMoveBy::create(mInfo.fSpeed, ccp(0, -40));
             Action *GODOWN = runAction(player1_animate_down);
@@ -126,7 +128,8 @@ void Hero::Moveto(int direction)
 	else if (direction == LEFT)
 	{
 		addPlayerAnimation();
-        if (playerPos.x - 40 >= 20)
+        playerPos.x -= 40;
+        if (playerPos.x >= 0 /*&& ifncollidable(playerPos)*/)
         {
             CCMoveBy * move = CCMoveBy::create(mInfo.fSpeed, ccp(-40, 0));;
             Action *GOLEFT = runAction(player1_animate_left);
@@ -138,7 +141,8 @@ void Hero::Moveto(int direction)
 	else if (direction == RIGHT)
 	{
 		addPlayerAnimation();
-        if (playerPos.x + 40 <= 620)
+        playerPos.x += 40;
+        if (playerPos.x <= 600 /*&& ifncollidable(playerPos)*/)
         {
             CCMoveBy * move = CCMoveBy::create(mInfo.fSpeed, ccp(40, 0));;
             Action *GORIGHT = runAction(player1_animate_right);

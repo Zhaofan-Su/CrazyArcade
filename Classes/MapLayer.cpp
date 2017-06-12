@@ -4,88 +4,32 @@
 USING_NS_CC;
 
 
-/*bool MapLayer::init()
+bool MapLayer::init()
 {
-    
-    map = TMXTiledMap::create("map/FirstMap.tmx");         //½«µØÍ¼ÒýÈëGameSceneÖÐ
-    map->setPosition(Vec2(20,40));                              //ÉèÖÃµØÍ¼Î»ÖÃ
-    map->setAnchorPoint(Vec2::ZERO);                            //½«µØÍ¼ÃªµãÉèÖÃÎª×óÏÂ½ÇÔ­µã´¦
+    if (!Layer::init())
+        return false;
+
+    map = TMXTiledMap::create("map/FirstMap.tmx");
+    map->setPosition(Vec2(20, 40));                            //ÉèÖÃµØÍ¼Î»ÖÃ
+    map->setAnchorPoint(Vec2::ZERO);                           //½«µØÍ¼ÃªµãÉèÖÃÎª×óÏÂ½ÇÔ­µã´¦
+
+    TMXObjectGroup*group = map->getObjectGroup("objects");     //Í¨¹ý¶ÔÏó²ãÃû»ñµÃ¶ÔÏó²ãÖÐ¶ÔÏó¼¯ºÏ
+    ValueMap spawnPoint = group->getObject("hero");            //Í¨¹ý¶ÔÏóÃû»ñµÃ¶ÔÏóÐÅÏ¢£¬·µ»ØÀàÐÍValueMap
+
+    collidable = map->getLayer("collidable");                  //Í¨¹ý²ãÃû×Ö¡°collidable¡±´´½¨²ã
+    collidable->setVisible(false);                             //ÉèÖÃÅö×²²ã²»¿É¼û
+
     this->addChild(map);
-
-    TMXObjectGroup*group = map->getObjectGroup("objects");        //Í¨¹ý¶ÔÏó²ãÃû»ñµÃ¶ÔÏó²ãÖÐ¶ÔÏó¼¯ºÏ
-    ValueMap spawnPoint = group->getObject("hero");               //Í¨¹ý¶ÔÏóÃû»ñµÃ¶ÔÏóÐÅÏ¢£¬·µ»ØÀàÐÍValueMap
-
-    player1 = Hero::create();                               //´´½¨ÈËÎï
-    player1->addPlayerAnimation();
-    player1->addPlayer();
-    this->addChild(player1, 1);
-
-    collidable = map->getLayer("collidable");                //Í¨¹ý²ãÃû×Ö¡°collidable¡±´´½¨²ã
-
-    //×¢²á¼üÅÌ¼àÌýÆ÷
-    auto listener = EventListenerKeyboard::create();
-    listener->onKeyPressed = CC_CALLBACK_2(MapLayer::onKeyPressed, this);
-    listener->onKeyReleased = CC_CALLBACK_2(MapLayer::onKeyPressed, this);
-    _eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
-
-
-    return true;
-}
-void MapLayer::onKeyPressed(EventKeyboard::KeyCode keyCode, Event*event)
-{
-    Vec2 player_pos = player1->getPosition();
-    Vec2 Pos;
-    if (player1->getDirection(keyCode) == UP)
-    {
-        Pos.x = player_pos.x;
-        Pos.y = player_pos.y + 40;
-        if (setPlayerPosition(Pos) && Pos.y <= 560)
-        {
-            player1->Moveto(player1->getDirection(keyCode));
-            player1->stopAllActions();
-        }
-    }
-    else if (player1->getDirection(keyCode) == DOWN)
-    {
-        Pos.x = player_pos.x;
-        Pos.y = player_pos.y - 40;
-        if (setPlayerPosition(Pos) && Pos.y >= 40)
-        {
-            player1->Moveto(player1->getDirection(keyCode));
-            player1->stopAllActions();
-        }
-    }
-    else if (player1->getDirection(keyCode) == LEFT)
-    {
-        Pos.x = player_pos.x - 40;
-        Pos.y = player_pos.y;
-        if (setPlayerPosition(Pos) && Pos.x >= 20)
-        {
-            player1->Moveto(player1->getDirection(keyCode));
-            player1->stopAllActions();
-        }
-    }
-    else if (player1->getDirection(keyCode) == RIGHT)
-    {
-        Pos.x = player_pos.x + 40;
-        Pos.y = player_pos.y;
-        if (setPlayerPosition(Pos) && Pos.x <= 620)
-        {
-            player1->Moveto(player1->getDirection(keyCode));
-            player1->stopAllActions();
-        }
-    }
 }
 
-bool MapLayer::setPlayerPosition(Vec2 position)          //ÈôÓûÒÆ¶¯´¦ÎªÕÏ°­Îï£¬Ôò·µ»Øfalse
-{
+bool MapLayer::ifncollidable(Vec2 position)                      //ÈôÓûÒÆ¶¯´¦ÎªÕÏ°­Îï£¬Ôò·µ»Øfalse
+{                                                                //positionÎªÒªÒÆ¶¯´¦µÄ×ø±ê
     //´ÓÏñËØ×ø±êµã×ª»¯ÎªÍßÆ¬×ø±êµã
-    Vec2 Pos;
-    Pos.x = position.x - 20;
-    Pos.y = position.y - 40;
-    Vec2 tileCoord = this->tileCoordFromPosition(Pos);
-
+    Vec2 tileCoord = this->tileCoordFromPosition(position);
+    
     //»ñµÃÍßÆ¬µÄGID
+    tileCoord.x -= 20;
+    tileCoord.y -= 40;
     int tileGid = collidable->getTileGIDAt(tileCoord);
 
     if (tileGid > 0)
@@ -93,21 +37,18 @@ bool MapLayer::setPlayerPosition(Vec2 position)          //ÈôÓûÒÆ¶¯´¦ÎªÕÏ°­Îï£¬Ô
         Value prop = map->getPropertiesForGID(tileGid);
         ValueMap propValueMap = prop.asValueMap();
 
-        std::string collision = propValueMap["collidable"].asString();
+        std::string collision = propValueMap["Collidable"].asString();
 
         if (collision == "true")
             return false;
     }
-    
-    //player1->setPosition(position);
+
     return true;
 }
-
-Vec2 MapLayer::tileCoordFromPosition(Vec2 pos)
+Vec2 MapLayer::tileCoordFromPosition(Vec2 position)
 {
-    int x = pos.x / map->getTileSize().width;               //»ñµÃxÖáÍßÆ¬×ø±êÊý
-    int y = ((520 * map->getTileSize().height) - pos.y) /
-        map->getTileSize().height;                          //»ñµÃyÖáÍßÆ¬×ø±êÊý
-
+    int x = position.x / 40;
+    int y = (520 - position.y) / 40;
+    
     return Vec2(x, y);
-}*/
+}
